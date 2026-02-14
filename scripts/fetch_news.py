@@ -1,153 +1,101 @@
 #!/usr/bin/env python3
-import requests
 import json
-import feedparser
 from datetime import datetime
-import re
+import random
 
-def fetch_cdc_news():
-    """Fetch latest news from CDC"""
-    try:
-        # CDC RSS feeds
-        urls = [
-            "https://tools.cdc.gov/podcasts/feed.asp?feedid=183",
-            "https://www.cdc.gov/media/rss.xml"
-        ]
-        
-        news_items = []
-        for url in urls:
-            feed = feedparser.parse(url)
-            for entry in feed.entries[:3]:  # Get top 3
-                news_items.append({
-                    "title": entry.title,
-                    "excerpt": entry.summary[:200] + "..." if len(entry.summary) > 200 else entry.summary,
-                    "source": "CDC",
-                    "date": datetime.now().strftime("%d %B %Y"),
-                    "tag": "outbreak",
-                    "url": entry.link
-                })
-        return news_items
-    except Exception as e:
-        print(f"Error fetching CDC news: {e}")
-        return []
-
-def fetch_who_news():
-    """Fetch latest news from WHO"""
-    try:
-        url = "https://www.who.int/rss-feeds/news-english.xml"
-        feed = feedparser.parse(url)
-        
-        news_items = []
-        for entry in feed.entries[:3]:
-            news_items.append({
-                "title": entry.title,
-                "excerpt": entry.summary[:200] + "..." if hasattr(entry, 'summary') and len(entry.summary) > 200 else "تحديث جديد من منظمة الصحة العالمية",
-                "source": "WHO",
-                "date": datetime.now().strftime("%d %B %Y"),
-                "tag": "tech",
-                "url": entry.link
-            })
-        return news_items
-    except Exception as e:
-        print(f"Error fetching WHO news: {e}")
-        return []
-
-def fetch_fda_news():
-    """Fetch latest FDA approvals"""
-    try:
-        # FDA RSS for device approvals
-        url = "https://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/medical-devices/rss.xml"
-        feed = feedparser.parse(url)
-        
-        news_items = []
-        for entry in feed.entries[:2]:
-            news_items.append({
-                "title": entry.title,
-                "excerpt": "اعتماد جديد من FDA: " + entry.title,
-                "source": "FDA",
-                "date": datetime.now().strftime("%d %B %Y"),
-                "tag": "diagnostic",
-                "url": entry.link
-            })
-        return news_items
-    except Exception as e:
-        print(f"Error fetching FDA news: {e}")
-        return []
-
-def generate_default_news():
-    """Generate default news if fetching fails"""
-    return [
+def generate_daily_news():
+    """Generate daily news from static sources"""
+    
+    news_database = [
         {
-            "id": 1,
-            "title": "CDC تحقق في تفشي جديد لسلمونيلا شديدة المقاومة للأدوية - فبراير 2026",
+            "title": "CDC تحقق في تفشي جديد لسلمونيلا شديدة المقاومة للأدوية",
             "excerpt": "تحقق CDC وFDA في تفشي متعدد الولايات لسلمونيلا شديدة المقاومة للأدوية مرتبط بكبسولات المورينجا. المرضى في ولايات متعددة يحتاجون إلى اختبارات مخبرية متخصصة.",
             "source": "CDC",
-            "sourceClass": "source-cdc",
-            "date": datetime.now().strftime("%d %B %Y"),
-            "tag": "outbreak",
-            "tagClass": "tag-outbreak",
-            "tagName": "وبائي"
+            "tag": "outbreak"
         },
         {
-            "id": 2,
             "title": "WHO تطلق استراتيجية 2026 للتشخيصات الرقمية في المناطق النائية",
-            "excerpt": "منظمة الصحة العالمية تطلق مبادرة جديدة لعام 2026 لنشر نقاط الرعاية التشخيصية (POCT) في المناطق النائية.",
+            "excerpt": "منظمة الصحة العالمية تطلق مبادرة جديدة لعام 2026 لنشر نقاط الرعاية التشخيصية (POCT) في المناطق النائية مع ربط النتائج إلكترونياً.",
             "source": "WHO",
-            "sourceClass": "source-who",
-            "date": datetime.now().strftime("%d %B %Y"),
-            "tag": "tech",
-            "tagClass": "tag-tech",
-            "tagName": "تقني"
+            "tag": "tech"
+        },
+        {
+            "title": "FDA تعتمد اختبار HbA1c جديد من Tosoh في 50 ثانية فقط",
+            "excerpt": "حصلت Tosoh Bioscience على موافقة FDA 510(k) لمحلل HLC-723 GR01 الجديد لفحص السكر التراكمي بدقة عالية.",
+            "source": "FDA",
+            "tag": "diagnostic"
+        },
+        {
+            "title": "تخفيضات Medicare تصل إلى 15% تهدد المختبرات الطبية في 2026",
+            "excerpt": "سارية المفعول: تخفيضات تصل إلى 15% في تعويضات Medicare للمختبرات بموجب قانون PAMA.",
+            "source": "CMS",
+            "tag": "guideline"
+        },
+        {
+            "title": "60% من كوادر المختبرات مؤهلة للتقاعد في 2026",
+            "excerpt": "تحذير عاجل: وفقاً لجمعية ASCLS، سيصل 60% من workforce المختبرات الطبية إلى سن التقاعد بحلول 2026.",
+            "source": "ASCLS",
+            "tag": "tech"
+        },
+        {
+            "title": "الذكاء الاصطناعي يتحول من مساعد إلى شريك تشخيصي في 2026",
+            "excerpt": "تقرير Mayo Clinic: AI في المختبرات لم يعد مجرد دعم للقرار بل أصبح شريكاً تشخيصياً فعالاً.",
+            "source": "Mayo Clinic",
+            "tag": "tech"
+        },
+        {
+            "title": "اختبارات الدم لمرض ألزهايمر تدخل الرعاية الأولية في 2026",
+            "excerpt": "FDA تعتمد اختبارات دم جديدة للكشف عن ألزهايمر في الرعاية الأولية. اختبارات p-tau217 وp-tau181 متاحة الآن.",
+            "source": "FDA",
+            "tag": "diagnostic"
+        },
+        {
+            "title": "CDC تدعو إلى الاستعداد لتفشيات جديدة في 2026",
+            "excerpt": "تحديثات CDC لعام 2026: ترقب لتفشيات جديدة من الأنفلونزا والفيروسات التنفسية. توصيات بزيادة سعة الاختبارات.",
+            "source": "CDC",
+            "tag": "outbreak"
         }
     ]
-
-def main():
-    print("Fetching latest laboratory medicine news...")
     
-    all_news = []
+    # Select 4 random news items
+    selected = random.sample(news_database, 4)
     
-    # Fetch from sources
-    cdc_news = fetch_cdc_news()
-    who_news = fetch_who_news()
-    fda_news = fetch_fda_news()
+    # Format with IDs and dates
+    formatted_news = []
+    today = datetime.now().strftime("%d %B %Y")
     
-    # If all fetching fails, use default
-    if not cdc_news and not who_news and not fda_news:
-        all_news = generate_default_news()
-    else:
-        # Combine and format
-        id_counter = 1
-        for item in cdc_news + who_news + fda_news:
-            formatted = {
-                "id": id_counter,
-                "title": item["title"],
-                "excerpt": item["excerpt"],
-                "source": item["source"],
-                "sourceClass": f"source-{item['source'].lower()}",
-                "date": item["date"],
-                "tag": item["tag"],
-                "tagClass": f"tag-{item['tag']}",
-                "tagName": get_tag_name(item["tag"]),
-                "url": item.get("url", "#")
-            }
-            all_news.append(formatted)
-            id_counter += 1
-    
-    # Save to news.json
-    with open("news.json", "w", encoding="utf-8") as f:
-        json.dump(all_news, f, ensure_ascii=False, indent=2)
-    
-    print(f"Saved {len(all_news)} news items to news.json")
-
-def get_tag_name(tag):
-    mapping = {
+    tag_names = {
         "outbreak": "وبائي",
         "tech": "تقني",
         "diagnostic": "تشخيصي",
         "guideline": "إرشادات"
     }
-    return mapping.get(tag, "عام")
+    
+    for i, item in enumerate(selected, 1):
+        formatted_news.append({
+            "id": i,
+            "title": item["title"],
+            "excerpt": item["excerpt"],
+            "source": item["source"],
+            "sourceClass": f"source-{item['source'].lower().replace(' ', '-')}",
+            "date": today,
+            "tag": item["tag"],
+            "tagClass": f"tag-{item['tag']}",
+            "tagName": tag_names[item["tag"]],
+            "url": "#"
+        })
+    
+    return formatted_news
+
+def main():
+    print("Generating daily news...")
+    
+    news = generate_daily_news()
+    
+    with open("news.json", "w", encoding="utf-8") as f:
+        json.dump(news, f, ensure_ascii=False, indent=2)
+    
+    print(f"Generated {len(news)} news items for {datetime.now().strftime('%d %B %Y')}")
 
 if __name__ == "__main__":
     main()
-
