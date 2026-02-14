@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أخبار المختبرات الطبية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* أنماطك الحالية - يمكنك نسخها من كودك السابق */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: #f0f2f5;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .datetime {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        .breaking-news {
+            background: #c41e3a;
+            color: white;
+            padding: 0.8rem;
+            margin: 1rem auto;
+            width: 90%;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .breaking-news i {
+            font-size: 1.5rem;
+        }
+        .breaking-news span {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+        .categories {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        .category-tag {
+            background: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 1px solid #ddd;
+        }
+        .category-tag.active, .category-tag:hover {
+            background: #1e3c72;
+            color: white;
+            border-color: #1e3c72;
+        }
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        .news-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .news-source {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .source-cdc { background: #e3f2fd; color: #0d47a1; }
+        .source-who { background: #e8f5e8; color: #1b5e20; }
+        .source-fda { background: #fff3e0; color: #e65100; }
+        .source-local { background: #f3e5f5; color: #4a148c; }
+        .news-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        .news-excerpt {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #999;
+            font-size: 0.85rem;
+        }
+        .news-tag {
+            padding: 0.2rem 0.8rem;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+        .tag-outbreak { background: #ffebee; color: #b71c1c; }
+        .tag-tech { background: #e8eaf6; color: #1a237e; }
+        .tag-diagnostic { background: #e0f2f1; color: #004d40; }
+        .tag-guideline { background: #fff9c4; color: #f57f17; }
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1><i class="fas fa-flask"></i> أخبار المختبرات الطبية</h1>
+        <div class="datetime">
+            <span id="clock"></span> | <span id="date"></span>
+        </div>
+    </div>
+
+    <div class="breaking-news">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span id="breakingText">جاري تحميل الأخبار العاجلة...</span>
+    </div>
+
+    <div class="container">
+        <div class="categories">
+            <div class="category-tag active" onclick="filterNews('all')">الكل</div>
+            <div class="category-tag" onclick="filterNews('outbreak')">وبائي</div>
+            <div class="category-tag" onclick="filterNews('tech')">تقني</div>
+            <div class="category-tag" onclick="filterNews('diagnostic')">تشخيصي</div>
+            <div class="category-tag" onclick="filterNews('guideline')">إرشادات</div>
+        </div>
+
+        <div id="newsContainer" class="news-grid">
+            <!-- الأخبار ستحمل هنا ديناميكياً -->
+        </div>
+    </div>
+
+    <div class="footer">
+        <p id="lastUpdated"></p>
+    </div>
+
+    <script>
+        // Clock and Date
+        function updateDateTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+            
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const dateString = now.toLocaleDateString('ar-SA', options);
+            document.getElementById('date').textContent = dateString;
+            document.getElementById('lastUpdated').textContent = `آخر تحديث: ${dateString}`;
+        }
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+
+        // متغير عام للأخبار
+        let allNews = [];
+
+        // تحميل الأخبار من news.json
+        async function loadNews() {
+            try {
+                const response = await fetch('news.json');
+                allNews = await response.json();
+                renderNews('all');
+                startBreakingTicker();
+            } catch (error) {
+                console.error('خطأ في تحميل الأخبار:', error);
+                document.getElementById('newsContainer').innerHTML = '<p style="text-align:center">تعذر تحميل الأخبار. يرجى المحاولة لاحقاً.</p>';
+            }
+        }
+
+        // عرض الأخبار حسب الفلتر
+        function renderNews(filter = 'all') {
+            const container = document.getElementById('newsContainer');
+            container.innerHTML = '';
+            
+            const filtered = filter === 'all' ? allNews : allNews.filter(item => item.tag === filter);
+            
+            if (filtered.length === 0) {
+                container.innerHTML = '<p style="text-align:center; grid-column: 1/-1;">لا توجد أخبار في هذا التصنيف</p>';
+                return;
+            }
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'news-card';
+                card.innerHTML = `
+                    <div class="news-source ${item.sourceClass}">
+                        <i class="fas fa-${item.sourceIcon || 'hospital'}"></i>
+                        ${item.source}
+                    </div>
+                    <h3 class="news-title">${item.title}</h3>
+                    <p class="news-excerpt">${item.excerpt}</p>
+                    <div class="news-meta">
+                        <span><i class="far fa-calendar-alt"></i> ${item.date}</span>
+                        <span class="news-tag ${item.tagClass}">${item.tagName}</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterNews(category) {
+            document.querySelectorAll('.category-tag').forEach(tag => tag.classList.remove('active'));
+            event.target.classList.add('active');
+            renderNews(category);
+        }
+
+        // تشغيل شريط الأخبار العاجلة (يأخذ العناوين من أول 4 أخبار)
+        function startBreakingTicker() {
+            if (allNews.length === 0) return;
+            const breakingTitles = allNews.slice(0, 4).map(item => item.title);
+            let index = 0;
+            setInterval(() => {
+                index = (index + 1) % breakingTitles.length;
+                const banner = document.getElementById('breakingText');
+                banner.style.opacity = '0';
+                setTimeout(() => {
+                    banner.textContent = breakingTitles[index];
+                    banner.style.opacity = '1';
+                }, 300);
+            }, 8000);
+        }
+
+        // بدء التحميل
+        loadNews();
+    </script>
+</body>
+</html>
