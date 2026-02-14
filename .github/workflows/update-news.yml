@@ -1,0 +1,36 @@
+name: تحديث الأخبار اليومي
+
+on:
+  schedule:
+    # كل يوم الساعة 8 صباحاً بتوقيت غرينتش (11 صباحاً بتوقيت السعودية)
+    - cron: '0 8 * * *'
+  workflow_dispatch: # السماح بالتشغيل اليدوي
+
+jobs:
+  update-news:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: سحب المستودع
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        
+    - name: إعداد Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        
+    - name: تثبيت المكتبات المطلوبة
+      run: npm install axios cheerio
+      
+    - name: جلب الأخبار الجديدة
+      run: node scripts/fetch-news.js
+      
+    - name: حفظ التغييرات
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add -A
+        git diff --staged --quiet || git commit -m "🔄 تحديث الأخبار اليومية - $(date +'%Y-%m-%d')"
+        git push
