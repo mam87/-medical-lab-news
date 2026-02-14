@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مختبرات بلس | Medical Lab News Hub - أخصائي المختبرات مامون السعودي</title>
+    <meta name="description" content="بوابة أخبار المختبرات الطبية - أخصائي المختبرات مامون السعودي - تحديث يومي تلقائي من CDC وWHO">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #0ea5e9;
+            --accent: #06b6d4;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Breaking News Ticker */
+        .breaking-news {
+            background: linear-gradient(90deg, #dc2626 0%, #ef4444 100%);
+            color: white;
+            padding: 0.75rem;
+            text-align: center;
+            font-weight: 700;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        .breaking-news i {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 40px;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .logo i {
+            color: var(--accent);
+            font-size: 2rem;
+        }
+
+        .datetime-display {
+            background: rgba(255,255,255,0.1);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .time {
+            font-size: 1.25rem;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            color: var(--accent);
+        }
+
+        .date {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 120px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+        }
+
+        .editor-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Main Layout */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+        }
+
+        /* Articles Section */
+        .articles-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e2e8f0;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title i {
+            color: var(--primary);
+        }
+
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--success);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .pulse {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        /* Full Article Cards */
+        .article-card {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-right: 4px solid var(--primary);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .article-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .article-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--accent);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .article-date {
+            color: var(--gray);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .article-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            line-height: 1.4;
+        }
+
+        .article-content {
+            color: #334155;
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        .article-content p {
+            margin-bottom: 1rem;
+        }
+
+        .article-content h3 {
+            color: var(--primary);
+            margin: 1.5rem 0 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        .article-content ul {
+            margin-right: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .article-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .author-signature {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .author-avatar-small {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+        }
+
+        .reading-time {
+            color: var(--gray);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* News Section */
+        .news-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .news-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .news-card {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 1.5rem;
+            border-right: 4px solid var(--primary);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .news-source {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .source-cdc { color: var(--primary); }
+        .source-who { color: var(--secondary); }
+        .source-fda { color: var(--warning); }
+        .source-local { color: var(--success); }
+
+        .news-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--dark);
+            line-height: 1.4;
+        }
+
+        .news-excerpt {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--gray);
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .news-tag {
+            background: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid #e2e8f0;
+        }
+
+        .tag-diagnostic { color: var(--primary); border-color: #bfdbfe; background: #eff6ff; }
+        .tag-outbreak { color: var(--danger); border-color: #fecaca; background: #fef2f2; }
+        .tag-tech { color: var(--success); border-color: #bbf7d0; background: #f0fdf4; }
+        .tag-guideline { color: var(--warning); border-color: #fde68a; background: #fffbeb; }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .widget {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .widget-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--dark);
+        }
+
+        .quick-links {
+            list-style: none;
+        }
+
+        .quick-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .quick-links a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: #f8fafc;
+            border-radius: 10px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .quick-links a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        .contact-item:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .contact-item i {
+            font-size: 1.25rem;
+            color: var(--primary);
+        }
+
+        .contact-item:hover i {
+            color: white;
+        }
+
+        .contact-item div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-item strong {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .contact-item span {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 0.25rem;
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .category-tag {
+            padding: 0.5rem 1rem;
+            background: #f1f5f9;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gray);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .category-tag:hover, .category-tag.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary-dark);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .footer-contact {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #94a3b8;
+        }
+
+        .footer-contact-item a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-contact-item a:hover {
+            color: white;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #334155;
+        }
+
+        .last-updated {
+            color: var(--accent);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                order: 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                margin-top: 160px;
+            }
+            
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+            
+            .header {
+                top: 80px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .datetime-display {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .article-card, .news-section {
+                padding: 1rem;
+            }
+            
+            .article-title {
+                font-size: 1.25rem;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Auto-update Notification */
+        .update-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--success);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: none;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 1002;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .update-notification.show {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Breaking News Ticker -->
+    <div class="breaking-news" id="breakingNews">
+        <i class="fas fa-exclamation-circle"></i>
+        <span id="breakingText">جاري تحميل الأخبار العاجلة...</span>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-microscope"></i>
+                <span>مختبرات بلس</span>
+            </div>
+            <div class="datetime-display">
+                <i class="far fa-clock"></i>
+                <div>
+                    <div class="time" id="clock">00:00:00</div>
+                    <div class="date" id="date">جاري التحميل...</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>بوابة أخبار المختبرات الطبية</h1>
+            <p>أحدث الأخبار والإرشادات من CDC، WHO، FDA - مترجمة ومحللة لمختصي علوم المختبرات</p>
+            <div class="editor-badge">
+                <i class="fas fa-user-md"></i>
+                <span>أخصائي المختبرات: مامون السعودي</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <main>
+            <!-- Weekly Articles Section -->
+            <div class="articles-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-star"></i>
+                        المقالات العلمية الأسبوعية
+                    </h2>
+                    <div class="live-indicator">
+                        <span class="pulse"></span>
+                        تحديث يومي تلقائي
+                    </div>
+                </div>
+
+                <!-- Article 1 -->
+                <article class="article-card">
+                    <div class="article-header">
+                        <span class="article-badge">
+                            <i class="fas fa-robot"></i>
+                            الذكاء الاصطناعي 2026
+                        </span>
+                        <span class="article-date">
+                            <i class="far fa-calendar-alt"></i>
+                            15 فبراير 2026
+                        </span>
+                    </div>
+                    <h2 class="article-title">الذكاء الاصطناعي 2026: من مساعد القرار إلى شريك التشخيص في المختبرات الطبية</h2>
+                    <div class="article-content">
+                        <p>
+                            مع بداية عام 2026، يشهد مجال المختبرات الطبية تحولاً جذرياً في استخدام الذكاء الاصطناعي. لم يعد AI مجرد أداة لدعم القرار، بل أصبح شريكاً تشخيصياً فعالاً يشارك في صنع القرار الطبي. هذا التحول يمثل نقلة نوعية في طبيعة العمل المخبري ويفتح آفاقاً جديدة للدقة والكفاءة.
+                        </p>
+                        
+                        <h3>التطور من Decision Support إلى Diagnostic Partner</h3>
+                        <p>
+                            تشير توقعات Mayo Clinic Laboratories إلى أن التشخيصات المعززة بالذكاء الاصطناعي ستعتمد بشكل متزايد على التعاون بين البشر والآلات. السؤال لم يعد "هل نستخدم AI؟" بل أصبح "متى نبقي الإنسان في حلقة القرار ومتى نثق بالأتمتة الكاملة؟"
+                        </p>
+                        <p>
+                            يؤكد الدكتور William Morice، الرئيس التنفيذي لمختبرات Mayo Clinic، أن المختبرات في 2026 ستقرر بشكل استراتيجي متى تبقي الخبير البشري في الحلقة، ومتى تسمح للذكاء الاصطناعي بالعمل بشكل مستقل. هذا يتطلب فهماً عميقاً لحدود كل منهما ونقاط القوة في كل طرف.
+                        </p>
+
+                        <h3>الأتمتة الشاملة والمختبرات الذكية</h3>
+                        <p>
+                            تشير إحصائيات 2026 إلى أن 60% من المختبرات الكبيرة اعتمدت أنظمة الأتمتة الشاملة (Total Laboratory Automation - TLA)، و25% أضافت تقنيات AI متقدمة. هذه الأنظمة لا تؤتمت فقط المعالجة الفيزيائية للعينات، بل تشمل:
+                        </p>
+                        <ul>
+                            <li>التخطيط متعدد الخطوات للاختبارات (Multi-step Test Planning)</li>
+                            <li>اختيار الأدوات والنماذج المناسبة تلقائياً</li>
+                            <li>الإشراف الذكي على جودة النتائج</li>
+                            <li>التنبؤ بالصيانة الوقائية للأجهزة</li>
+                        </ul>
+
+                        <h3>التحديات والفرص</h3>
+                        <p>
+                            مع هذا التطور، تبرز تحديات جديدة تتعلق بالحوكمة والأخلاقيات. كيف نضمن أن AI لا يعزز التحيزات؟ كيف نحافظ على الخصوصية مع زيادة اعتماد البيانات الضخمة؟ وكيف نتعامل مع المسؤولية القانونية عند الخطأ التشخيصي المشترك بين الإنسان والآلة؟
+                        </p>
+                        <p>
+                            الإجابة تكمن في بناء إطارات عمل واضحة للحوكمة، والتدريب المستمر للكوادر على التعامل مع هذه التقنيات، والحفاظ على التوازن بين الابتكار والسلامة.
+                        </p>
+                    </div>
+                    <div class="article-footer">
+                        <div class="author-signature">
+                            <div class="author-avatar-small">م</div>
+                            <span>أخصائي المختبرات مامون السعودي</span>
+                        </div>
+                        <div class="reading-time">
+                            <i class="far fa-clock"></i>
+                            <span>وقت القراءة: 8 دقائق</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 2 -->
+                <article class="article-card">
+                    <div class="article-header">
+                        <span class="article-badge" style="background: var(--warning);">
+                            <i class="fas fa-users"></i>
+                            أزمة القوى العاملة
+                        </span>
+                        <span class="article-date">
+                            <i class="far fa-calendar-alt"></i>
+                            8 فبراير 2026
+                        </span>
+                    </div>
+                    <h2 class="article-title">أزمة القوى العاملة المخبرية 2026: 60% من الكوادر على وشك التقاعد</h2>
+                    <div class="article-content">
+                        <p>
+                            تواجه المختبرات الطبية الأمريكية والعالمية أزمة غير مسبوقة في القوى العاملة. وفقاً لأحدث بيانات جمعية ASCLS، سيصل 60% من workforce المختبرات الطبية (MT/MLS) إلى سن التقاعد بحلول نهاية 2026، مما يخلق فجوة هائلة في سوق العمل المخبري.
+                        </p>
+
+                        <h3>حجم الأزمة بالأرقام</h3>
+                        <p>
+                            تشير الإحصائيات الرسمية إلى:
+                        </p>
+                        <ul>
+                            <li>الحاجة السنوية: 10,000 أخصائي مختبرات جدد</li>
+                            <li>الخريجون السنويون: 5,000 فقط (نصف الاحتياج الفعلي)</li>
+                            <li>انخفاض برامج التدريب بنسبة 15% خلال العقد الماضي</li>
+                            <li>معدلات الشواغر تصل إلى 25-30% في بعض المناطق</li>
+                        </ul>
+
+                        <h3>الأسباب الجذرية</h3>
+                        <p>
+                            لا تقتصر الأزمة على التقاعد فحسب، بل تشمل عوامل متعددة:
+                        </p>
+                        <p>
+                            <strong>1. نقص الوعي بالمهنة:</strong> يظل دور أخصائيي المختبرات غير مرئي للعامة مقارنة بالأطباء والتمريض، مما يقلل من جاذبية المهنة للشباب.
+                        </p>
+                        <p>
+                            <strong>2. الضغوط المالية:</strong> تخفيضات Medicare بنسبة 15% في 2026 تضغط على رواتب المختبرات، مما يجعل المهنة أقل جاذبية مالياً.
+                        </p>
+                        <p>
+                            <strong>3. الإرهاق الوظيفي:</strong> مع نقص الكوادر، يتحمل المتبقون أعباء إضافية تؤدي إلى Burnout ومغادرة المهنة.
+                        </p>
+
+                        <h3>الحلول المقترحة</h3>
+                        <p>
+                            لمواجهة هذه الأزمة، يجب اتخاذ إجراءات عاجلة تشمل:
+                        </p>
+                        <ul>
+                            <li>زيادة منح البرامج التعليمية وتبسيط شروط القبول</li>
+                            <li>نقل جزء من التدريب إلى المنصات الإلكترونية</li>
+                            <li>تحسين الرواتب وظروف العمل</li>
+                            <li>الاعتماد على الأتمتة لتعويض النقص البشري</li>
+                            <li>حملات توعية لجذب الشباب للمهنة</li>
+                        </ul>
+                    </div>
+                    <div class="article-footer">
+                        <div class="author-signature">
+                            <div class="author-avatar-small">م</div>
+                            <span>أخصائي المختبرات مامون السعودي</span>
+                        </div>
+                        <div class="reading-time">
+                            <i class="far fa-clock"></i>
+                            <span>وقت القراءة: 6 دقائق</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 3 -->
+                <article class="article-card">
+                    <div class="article-header">
+                        <span class="article-badge" style="background: var(--danger);">
+                            <i class="fas fa-shield-virus"></i>
+                            مكافحة العدوى
+                        </span>
+                        <span class="article-date">
+                            <i class="far fa-calendar-alt"></i>
+                            1 فبراير 2026
+                        </span>
+                    </div>
+                    <h2 class="article-title">تحديات مكافحة العدوى 2026: بكتيريا E. coli الغازية تهدد المجتمع</h2>
+                    <div class="article-content">
+                        <p>
+                            في تحذير عاجل صدر مطلع فبراير 2026، كشفت CDC عن ارتفاع مقلق في حالات الإصابة ببكتيريا E. coli الغازية (Invasive E. coli) كسبب رئيسي للإنتان المكتسب مجتمعياً (Community-Onset Sepsis). هذه البكتيريا، المعروفة تقليدياً كمسبب للتهابات المسالك البولية والجهاز الهضمي، تتحول إلى عدوانية غير مسبوقة.
+                        </p>
+
+                        <h3>الوضع الراهن</h3>
+                        <p>
+                            تشير بيانات CDC إلى أن سلالات E. coli المنتجة للزفيرa (ESBL) والمقاومة للكاربابينيمات أصبحت أكثر انتشاراً في المجتمع، وليس فقط في المستشفيات. هذا التحول يمثل تهديداً صحياً عاماً يتطلب استجابة مخبرية سريعة.
+                        </p>
+
+                        <h3>الدور المخبري الحاسم</h3>
+                        <p>
+                            يقع على عاتق المختبرات الطبية دور محوري في:
+                        </p>
+                        <ul>
+                            <li>التشخيص السريع باستخدام تقنيات MALDI-TOF MS للتعريف الدقيق</li>
+                            <li>اختبارات حساسية العزلات للكشف عن المقاومة الممتدة الطيف</li>
+                            <li>المراقبة الوبائية وتتبع الأنماط المقاومة</li>
+                            <li>التبليغ الفوري للحالات إلى السلطات الصحية</li>
+                        </ul>
+
+                        <h3>التوصيات العملية</h3>
+                        <p>
+                            يجب على المختبرات اتخاذ إجراءات وقائية تشمل:
+                        </p>
+                        <p>
+                            - مراجعة بروتوكولات culturing للعينات الدموية والبولية<br>
+                            - التأكد من توفر مضادات الكاربابينيم للاختبارات الحساسية<br>
+                            - تدريب الفنيين على التعرف على أنماط المقاومة الجديدة<br>
+                            - التواصل الفعال مع الأطباء المعالجين حول خطورة هذه العزلات
+                        </p>
+                    </div>
+                    <div class="article-footer">
+                        <div class="author-signature">
+                            <div class="author-avatar-small">م</div>
+                            <span>أخصائي المختبرات مامون السعودي</span>
+                        </div>
+                        <div class="reading-time">
+                            <i class="far fa-clock"></i>
+                            <span>وقت القراءة: 5 دقائق</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 4 -->
+                <article class="article-card">
+                    <div class="article-header">
+                        <span class="article-badge" style="background: var(--success);">
+                            <i class="fas fa-dna"></i>
+                            الاختبارات الجينية
+                        </span>
+                        <span class="article-date">
+                            <i class="far fa-calendar-alt"></i>
+                            25 يناير 2026
+                        </span>
+                    </div>
+                    <h2 class="article-title">اختبارات الدم لمرض ألزهايمر: ثورة التشخيص المبكر في 2026</h2>
+                    <div class="article-content">
+                        <p>
+                            شهد عام 2026 نقلة نوعية في تشخيص ألزهايمر مع اعتماد FDA لاختبارات دم جديدة عالية الدقة. هذه الاختبارات، التي تركز على بروتينات p-tau217 وp-tau181، تعد بتحويل مسار التشخيص من التأخر إلى الاكتشاف المبكر.
+                        </p>
+
+                        <h3>نهاية عصر PET والبزل النخاعي؟</h3>
+                        <p>
+                            لعقود، اعتمد التشخيص الدقيق لألزهايمر على:
+                        </p>
+                        <ul>
+                            <li>تصوير PET المكلف (تكلفة تصل إلى 5000$)</li>
+                            <li>البزل النخاعي الشوكي (إجراء invasive)</li>
+                            <li>الانتظار الطويل للمواعيد والنتائج</li>
+                        </ul>
+                        <p>
+                            اليوم، توفر اختبارات الدم نفس المستوى من الدقة في جزء من الوقت والتكلفة، مما يجعل الفحص متاحاً للرعاية الأولية.
+                        </p>
+
+                        <h3>الآلية العلمية</h3>
+                        <p>
+                            تركز الاختبارات الجديدة على:
+                        </p>
+                        <p>
+                            <strong>p-tau217:</strong> يظهر تغيرات مبكرة في بروتين Tau المرتبط بتشكل اللويحات العصبية<br>
+                            <strong>p-tau181:</strong> يساعد في التمييز بين ألزهايمر وأنواع أخرى من الخرف<br>
+                            <strong>نسبة Aβ42/40:</strong> تكمل الصورة التشخيصية
+                        </p>
+
+                        <h3>التطبيقات المخبرية</h3>
+                        <p>
+                            يجب على المختبرات الاستعداد لـ:
+                        </p>
+                        <ul>
+                            <li>اعتماد منصات immunoassay عالية الحساسية (Simoa, Lumipulse)</li>
+                            <li>ضمان معايرة دقيقة وضبط جودة صارم</li>
+                            <li>التعاون مع أطباء الأعصاب لتفسير النتائج</li>
+                            <li>إنشاء بروتوكولات للمتابعة الدورية</li>
+                        </ul>
+                    </div>
+                    <div class="article-footer">
+                        <div class="author-signature">
+                            <div class="author-avatar-small">م</div>
+                            <span>أخصائي المختبرات مامون السعودي</span>
+                        </div>
+                        <div class="reading-time">
+                            <i class="far fa-clock"></i>
+                            <span>وقت القراءة: 7 دقائق</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 5 -->
+                <article class="article-card">
+                    <div class="article-header">
+                        <span class="article-badge" style="background: #8b5cf6;">
+                            <i class="fas fa-flask"></i>
+                            LDTs والتنظيم
+                        </span>
+                        <span class="article-date">
+                            <i class="far fa-calendar-alt"></i>
+                            18 يناير 2026
+                        </span>
+                    </div>
+                    <h2 class="article-title">قاعدة FDA النهائية للاختبارات المطورة في المختبرات (LDTs): ما يجب معرفته في 2026</h2>
+                    <div class="article-content">
+                        <p>
+                            دخلت في مايو 2026 المرحلة الثانية من قاعدة FDA النهائية لتنظيم Laboratory Developed Tests (LDTs)، مما يفرض متطلبات جديدة على المختبرات فيما يتعلق بالتسجيل، التسمية، ومتطلبات الاستخدام الاستثنائي.
+                        </p>
+
+                        <h3>خلفية القرار</h3>
+                        <p>
+                            لعقود، استفادت المختبرات من "تسامح التنفيذ" (Enforcement Discretion) الذي سمح بتطوير اختبارات داخلية دون رقابة FDA الصارمة. لكن مع تزايد تعقيد هذه الاختبارات وتأثيرها المباشر على قرارات العلاج، قررت FDA إعادة تصنيف LDTs كأجهزة طبية in vitro diagnostics (IVDs).
+                        </p>
+
+                        <h3>الجدول الزمني للتنفيذ</h3>
+                        <ul>
+                            <li><strong>مايو 2025:</strong> متطلبات الإبلاغ عن الأحداث الضارة والجودة</li>
+                            <li><strong>مايو 2026 (الحالي):</strong> التسجيل والإدراج، متطلبات التسمية، الاستخدام الاستثنائي</li>
+                            <li><strong>مايو 2027:</strong> متطلبات نظام الجودة المتبقية</li>
+                            <li><strong>نوفمبر 2027:</strong> مراجعة ما قبل السوق للأجهزة عالية الخطورة</li>
+                            <li><strong>مايو 2028:</strong> مراجعة ما قبل السوق للأجهزة متوسطة ومنخفضة الخطورة</li>
+                        </ul>
+
+                        <h3>التحديات القانونية</h3>
+                        <p>
+                            تواجه القاعدة تحديات قضائية من ACLA (جمعية المختبرات السريرية الأمريكية) وAMP (جمعية علم الأمراض الجزيئي) التي ت argue أن FDA تتجاوز صلاحياتها. المختبرات يجب أن تستعد للسيناريوهين: التنفيذ الكامل أو تعديلات جوهرية.
+                        </p>
+
+                        <h3>ما يجب فعله الآن</h3>
+                        <p>
+                            إذا كنت تدير مختبراً يطور اختبارات داخلية:
+                        </p>
+                        <ul>
+                            <li>مراجعة قائمة الاختبارات LDT الحالية</li>
+                            <li>تصنيفها حسب مستوى الخطورة (Class I, II, III)</li>
+                            <li>البدء في تطوير بيانات الأداء والسلامة</li>
+                            <li>التشاور مع مستشارين قانونيين متخصصين</li>
+                            <li>متابعة التطورات القضائية</li>
+                        </ul>
+                    </div>
+                    <div class="article-footer">
+                        <div class="author-signature">
+                            <div class="author-avatar-small">م</div>
+                            <span>أخصائي المختبرات مامون السعودي</span>
+                        </div>
+                        <div class="reading-time">
+                            <i class="far fa-clock"></i>
+                            <span>وقت القراءة: 9 دقائق</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Daily News Section -->
+            <div class="news-section" id="dailyNews">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-newspaper"></i>
+                        آخر الأخبار العالمية - تحديث يومي تلقائي
+                    </h2>
+                    <div class="live-indicator">
+                        <span class="pulse"></span>
+                        تحديث مباشر
+                    </div>
+                </div>
+
+                <div class="news-grid" id="newsContainer">
+                    <!-- News items will be loaded dynamically -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Contact Widget -->
+            <div class="widget" style="background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white;">
+                <h3 class="widget-title" style="color: white;">
+                    <i class="fas fa-address-card"></i>
+                    تواصل معي
+                </h3>
+                <div class="contact-info">
+                    <a href="https://wa.me/962799146795" target="_blank" class="contact-item" style="color: white; text-decoration: none;">
+                        <i class="fab fa-whatsapp" style="color: #25d366;"></i>
+                        <div>
+                            <strong>واتساب</strong>
+                            <span dir="ltr">+962 79 914 6795</span>
+                        </div>
+                    </a>
+                    <a href="mailto:mam87soudi@gmail.com" class="contact-item" style="color: white; text-decoration: none;">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>البريد الإلكتروني</strong>
+                            <span>mam87soudi@gmail.com</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Categories Widget -->
+            <div class="widget">
+                <h3 class="widget-title">
+                    <i class="fas fa-filter"></i>
+                    تصفية الأخبار
+                </h3>
+                <div class="categories">
+                    <span class="category-tag active" onclick="filterNews('all')">الكل</span>
+                    <span class="category-tag" onclick="filterNews('diagnostic')">تشخيصية</span>
+                    <span class="category-tag" onclick="filterNews('outbreak')">وبائية</span>
+                    <span class="category-tag" onclick="filterNews('tech')">تقنية</span>
+                    <span class="category-tag" onclick="filterNews('guideline')">إرشادات</span>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="widget">
+                <h3 class="widget-title">
+                    <i class="fas fa-link"></i>
+                    روابط سريعة
+                </h3>
+                <ul class="quick-links">
+                    <li>
+                        <a href="https://www.cdc.gov" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            CDC - المركز الأمريكي للسيطرة على الأمراض
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.who.int" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            WHO - منظمة الصحة العالمية
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.fda.gov" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            FDA - إدارة الغذاء والدواء
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.ascls.org" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            ASCLS - جمعية المختبرات السريرية
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://myadlm.org" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            ADLM - جمعية طب المختبرات
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Stats Widget -->
+            <div class="widget">
+                <h3 class="widget-title">
+                    <i class="fas fa-chart-line"></i>
+                    إحصائيات 2026
+                </h3>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <span class="stat-number">60%</span>
+                        <span class="stat-label">المختبرات بأتمتة TLA</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number">25%</span>
+                        <span class="stat-label">اعتماد AI</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number">60%</span>
+                        <span class="stat-label">متقاعدو 2026</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number">15%</span>
+                        <span class="stat-label">تخفيضات Medicare</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upcoming Events -->
+            <div class="widget">
+                <h3 class="widget-title">
+                    <i class="fas fa-calendar-check"></i>
+                    مؤتمرات قادمة 2026
+                </h3>
+                <ul class="quick-links">
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-microscope"></i>
+                            <div>
+                                Medlab Middle East - دبي<br>
+                                <small style="color: var(--gray);">23-26 فبراير 2026</small>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-flask"></i>
+                            <div>
+                                Pittcon - سان أنطونيو<br>
+                                <small style="color: var(--gray);">7-11 مارس 2026</small>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-dna"></i>
+                            <div>
+                                ASM Microbe - واشنطن<br>
+                                <small style="color: var(--gray);">4-8 يونيو 2026</small>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="widget" style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%); color: white;">
+                <h3 class="widget-title" style="color: white;">
+                    <i class="fas fa-envelope"></i>
+                    النشرة البريدية
+                </h3>
+                <p style="margin-bottom: 1rem; font-size: 0.9rem;">احصل على أحدث المقالات والأخبار أسبوعياً</p>
+                <form style="display: flex; flex-direction: column; gap: 0.75rem;" onsubmit="event.preventDefault(); alert('شكراً للاشتراك! سيتم إرسال النشرة إلى بريدك.');">
+                    <input type="email" placeholder="بريدك الإلكتروني" required style="padding: 0.75rem; border: none; border-radius: 8px; font-family: inherit;">
+                    <button type="submit" style="padding: 0.75rem; background: var(--accent); color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; transition: all 0.3s;">
+                        اشتراك مجاني
+                    </button>
+                </form>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-microscope"></i>
+                <span>مختبرات بلس</span>
+            </div>
+            
+            <div class="footer-contact">
+                <div class="footer-contact-item">
+                    <i class="fab fa-whatsapp"></i>
+                    <a href="https://wa.me/962799146795" target="_blank">+962 79 914 6795</a>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:mam87soudi@gmail.com">mam87soudi@gmail.com</a>
+                </div>
+            </div>
+
+            <p style="color: #94a3b8; max-width: 600px; margin: 0 auto 2rem;">
+                منصة متخصصة في نشر أخبار وأبحاث علوم المختبرات الطبية، تهدف إلى رفع الوعي العلمي وتحديث المختصين بأحدث الإرشادات العالمية.
+            </p>
+            
+            <div class="footer-links">
+                <a href="#">من نحن</a>
+                <a href="#">سياسة الخصوصية</a>
+                <a href="#">اتصل بنا</a>
+                <a href="#">شروط الاستخدام</a>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2026 مختبرات بلس. جميع الحقوق محفوظة</p>
+                <p class="last-updated" id="lastUpdated">آخر تحديث: جاري التحميل...</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Update Notification -->
+    <div class="update-notification" id="updateNotification">
+        <i class="fas fa-sync-alt"></i>
+        <span>تم تحديث الأخبار!</span>
+    </div>
+
+    <script>
+        // Clock and Date Functionality
+        function updateDateTime() {
+            const now = new Date();
+            
+            // Time
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+            
+            // Date in Arabic
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            const dateString = now.toLocaleDateString('ar-SA', options);
+            document.getElementById('date').textContent = dateString;
+            
+            // Last Updated
+            document.getElementById('lastUpdated').textContent = `آخر تحديث: ${dateString} - ${hours}:${minutes}`;
+        }
+
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+
+        // News Data - Will be loaded from news.json in production
+        const defaultNews = [
+            {
+                id: 1,
+                title: "CDC تحقق في تفشي جديد لسلمونيلا شديدة المقاومة للأدوية - فبراير 2026",
+                excerpt: "تحقق CDC وFDA في تفشي متعدد الولايات لسلمونيلا شديدة المقاومة للأدوية مرتبط بكبسولات المورينجا. المرضى في ولايات متعددة يحتاجون إلى اختبارات مخبرية متخصصة للكشف عن المقاومة الواسعة للمضادات الحيوية.",
+                source: "CDC",
+                sourceClass: "source-cdc",
+                date: "14 فبراير 2026",
+                tag: "outbreak",
+                tagClass: "tag-outbreak",
+                tagName: "وبائي"
+            },
+            {
+                id: 2,
+                title: "تخفيضات Medicare تصل إلى 15% تهدد المختبرات الطبية في 2026",
+                excerpt: "سارية المفعول: تخفيضات تصل إلى 15% في تعويضات Medicare للمختبرات بموجب قانون PAMA. قانون RESULTS الجديد يهدف إلى تقييد التخفيضات السنوية عند 5% فقط. المختبرات تواجه ضغوطاً مالية غير مسبوقة.",
+                source: "CMS/CDC",
+                sourceClass: "source-cdc",
+                date: "1 يناير 2026",
+                tag: "guideline",
+                tagClass: "tag-guideline",
+                tagName: "إرشادات"
+            },
+            {
+                id: 3,
+                title: "FDA تعتمد اختبار HbA1c جديد من Tosoh في 50 ثانية فقط",
+                excerpt: "حصلت Tosoh Bioscience على موافقة FDA 510(k) لمحلل HLC-723 GR01 الجديد لفحص السكر التراكمي. الجهاز يقدم نتائج في 50 ثانية فقط مع دقة CV ≤ 1.1%، مما يجعله مثالياً للمختبرات متوسطة وعالية الحجم.",
+                source: "FDA",
+                sourceClass: "source-fda",
+                date: "يناير 2026",
+                tag: "diagnostic",
+                tagClass: "tag-diagnostic",
+                tagName: "تشخيصي"
+            },
+            {
+                id: 4,
+                title: "WHO تطلق استراتيجية 2026 للتشخيصات الرقمية في المناطق النائية",
+                excerpt: "منظمة الصحة العالمية تطلق مبادرة جديدة لعام 2026 لنشر نقاط الرعاية التشخيصية (POCT) في المناطق النائية. التركيز على اختبارات السكري والكلى المزمنة مع ربط النتائج إلكترونياً بفرق الرعاية الصحية.",
+                source: "WHO",
+                sourceClass: "source-who",
+                date: "5 فبراير 2026",
+                tag: "tech",
+                tagClass: "tag-tech",
+                tagName: "تقني"
+            },
+            {
+                id: 5,
+                title: "الأتمتة الشاملة TLA تصل إلى 60% من المختبرات الكبرى في 2026",
+                excerpt: "تقرير 2026: 60% من المختبرات الكبيرة اعتمدت أنظمة الأتمتة الشاملة (TLA) و25% أضافت تقنيات AI. التركيز على تقليل الأخطاء البشرية وتحسين أوقات التحول رغم نقص الكوادر المؤهلة.",
+                source: "ASCLS",
+                sourceClass: "source-local",
+                date: "15 فبراير 2026",
+                tag: "tech",
+                tagClass: "tag-tech",
+                tagName: "تقني"
+            },
+            {
+                id: 6,
+                title: "اختبارات الدم لمرض ألزهايمر تدخل الرعاية الأولية في 2026",
+                excerpt: "FDA تعتمد اختبارات دم جديدة للكشف عن ألزهايمر في الرعاية الأولية. اختبارات p-tau217 وp-tau181 متاحة الآن سريرياً لتقليل الاعتماد على PET والبزل النخاعي. متطلبات واضحة للمبادئ التوجيهية السريرية.",
+                source: "FDA/CDC",
+                sourceClass: "source-fda",
+                date: "12 فبراير 2026",
+                tag: "diagnostic",
+                tagClass: "tag-diagnostic",
+                tagName: "تشخيصي"
+            },
+            {
+                id: 7,
+                title: "Smart LIMS: الجيل الجديد من أنظمة إدارة المختبرات في 2026",
+                excerpt: "تطور أنظمة LIMS إلى Smart LIMS مع دمج AI وML للتحليلات التنبؤية وتفسير البيانات في الوقت الفعلي. الذكاء الوكيل (Agentic AI) يستجيب proactively للانحرافات والأعطال، مما يوفر الوقت والمال.",
+                source: "WHO",
+                sourceClass: "source-who",
+                date: "10 فبراير 2026",
+                tag: "tech",
+                tagClass: "tag-tech",
+                tagName: "تقني"
+            },
+            {
+                id: 8,
+                title: "CDC تدعو إلى الاستعداد لتفشيات جديدة في 2026",
+                excerpt: "تحديثات CDC لعام 2026: ترقب لتفشيات جديدة من الأنفلونزا والفيروسات التنفسية. توصيات بزيادة سعة الاختبارات المختبرية وتنويع مصادر الإمدادات. تحذيرات من نقص محتمل في مستلزمات المختبرات.",
+                source: "CDC",
+                sourceClass: "source-cdc",
+                date: "8 فبراير 2026",
+                tag: "outbreak",
+                tagClass: "tag-outbreak",
+                tagName: "وبائي"
+            }
+        ];
+
+        // Load News
+        function loadNews() {
+            // In production, this will fetch from news.json
+            // For now, use default data
+            renderNews(defaultNews);
+            
+            // Simulate fetching from external source
+            setTimeout(() => {
+                checkForUpdates();
+            }, 5000);
+        }
+
+        function renderNews(newsData, filter = 'all') {
+            const container = document.getElementById('newsContainer');
+            container.innerHTML = '';
+            
+            const filteredNews = filter === 'all' 
+                ? newsData 
+                : newsData.filter(item => item.tag === filter);
+            
+            filteredNews.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'news-card';
+                card.innerHTML = `
+                    <div class="news-source ${item.sourceClass}">
+                        <i class="fas fa-${item.source === 'WHO' ? 'globe' : item.source.includes('FDA') ? 'shield-alt' : 'hospital'}"></i>
+                        ${item.source}
+                    </div>
+                    <h3 class="news-title">${item.title}</h3>
+                    <p class="news-excerpt">${item.excerpt}</p>
+                    <div class="news-meta">
+                        <span><i class="far fa-calendar-alt"></i> ${item.date}</span>
+                        <span class="news-tag ${item.tagClass}">${item.tagName}</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterNews(category) {
+            document.querySelectorAll('.category-tag').forEach(tag => {
+                tag.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            renderNews(defaultNews, category);
+        }
+
+        // Check for updates (simulated)
+        function checkForUpdates() {
+            // In production, this compares local news.json with server version
+            console.log('Checking for news updates...');
+            
+            // Show notification if new data available
+            // document.getElementById('updateNotification').classList.add('show');
+            // setTimeout(() => {
+            //     document.getElementById('updateNotification').classList.remove('show');
+            // }, 3000);
+        }
+
+        // Breaking News Rotation
+        const breakingNews = [
+            "CDC تحقق في تفشي جديد لسلمونيلا مقاومة للأدوية - فبراير 2026",
+            "تحذير: تخفيضات Medicare 15% تهدد المختبرات في 2026",
+            "أزمة: 60% من كوادر المختبرات مؤهلة للتقاعد في 2026",
+            "FDA تعتمد اختبار HbA1c الجديد في 50 ثانية فقط"
+        ];
+        
+        let newsIndex = 0;
+        setInterval(() => {
+            newsIndex = (newsIndex + 1) % breakingNews.length;
+            const banner = document.getElementById('breakingText');
+            if (banner) {
+                banner.style.opacity = '0';
+                setTimeout(() => {
+                    banner.textContent = breakingNews[newsIndex];
+                    banner.style.opacity = '1';
+                }, 300);
+            }
+        }, 8000);
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadNews();
+            
+            // Smooth scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+
+        // Auto-refresh every 30 minutes to check for new content
+        setInterval(() => {
+            location.reload();
+        }, 1800000);
+    </script>
+</body>
+</html>
