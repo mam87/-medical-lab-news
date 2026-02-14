@@ -1,0 +1,41 @@
+name: تحديث الأخبار اليومي
+
+on:
+  schedule:
+    # يعمل يومياً الساعة 06:00 UTC (يمكنك تعديل التوقيت)
+    - cron: '0 6 * * *'
+  workflow_dispatch:      # يسمح بتشغيله يدوياً من واجهة GitHub
+
+jobs:
+  update-news:
+    runs-on: ubuntu-latest
+    steps:
+      - name: استنساخ المستودع
+        uses: actions/checkout@v4
+
+      - name: إعداد Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: تثبيت الاعتماديات
+        run: npm install axios
+
+      - name: تشغيل سكريبت جلب الأخبار
+        env:
+          NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
+        run: node fetch-news.js
+
+      - name: التحقق من وجود تغييرات
+        id: git-check
+        run: |
+          git diff --quiet news.json || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: الالتزام بالتغييرات إن وجدت
+        if: steps.git-check.outputs.changed == 'true'
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add news.json
+          git commit -m 'تحديث تلقائي للأخبار - $(date)'
+          git push
