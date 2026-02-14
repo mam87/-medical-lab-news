@@ -3,190 +3,612 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أخبار المختبرات الطبية - تحديث مباشر</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>مختبرات بلس | أخبار المختبرات الطبية - أخصائي المختبرات مامون السعودي</title>
+    <meta name="description" content="بوابة أخبار المختبرات الطبية - أخصائي المختبرات مامون السعودي - تحديث يومي من CDC، WHO، FDA">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+
         body {
-            background: #f0f2f5;
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            color: #2c3e50;
+            line-height: 1.6;
         }
+
+        /* Header */
         .header {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #06b6d4 100%);
             color: white;
-            padding: 1rem;
+            padding: 1.5rem 1rem;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
         }
-        .header h1 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
         }
-        .datetime {
-            font-size: 1.2rem;
-            opacity: 0.9;
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        .breaking-news {
-            background: #c41e3a;
-            color: white;
-            padding: 0.8rem;
-            margin: 1rem auto;
-            width: 90%;
-            border-radius: 50px;
+
+        .logo-section {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            gap: 1rem;
+            margin-bottom: 1rem;
         }
+
+        .logo-icon {
+            font-size: 3rem;
+            color: #fbbf24;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 1rem;
+        }
+
+        .editor-info {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: rgba(255,255,255,0.2);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            margin-top: 0.5rem;
+        }
+
+        .editor-avatar {
+            width: 45px;
+            height: 45px;
+            background: #fbbf24;
+            color: #1e3a8a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+
+        .datetime {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .datetime span {
+            background: rgba(0,0,0,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        /* Breaking News */
+        .breaking-news {
+            background: linear-gradient(90deg, #dc2626 0%, #ef4444 50%, #f87171 100%);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
         .breaking-news i {
             font-size: 1.5rem;
+            animation: blink 1s infinite;
         }
-        .breaking-news span {
-            font-weight: bold;
-            font-size: 1.1rem;
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
+
+        /* Contact Bar */
+        .contact-bar {
+            background: #1e293b;
+            color: white;
+            padding: 0.75rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            font-size: 0.95rem;
+        }
+
+        .contact-bar a {
+            color: #38bdf8;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .contact-bar a:hover {
+            color: #fbbf24;
+        }
+
+        /* Container */
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 2rem auto;
             padding: 0 20px;
         }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: #1e3a8a;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            position: relative;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #06b6d4);
+            border-radius: 2px;
+        }
+
+        /* Categories */
         .categories {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 15px;
             flex-wrap: wrap;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
+
         .category-tag {
             background: white;
-            padding: 0.5rem 1.5rem;
-            border-radius: 25px;
+            padding: 0.75rem 2rem;
+            border-radius: 30px;
             cursor: pointer;
-            font-weight: 500;
+            font-weight: 700;
+            font-size: 1rem;
             transition: all 0.3s;
-            border: 1px solid #ddd;
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
-        .category-tag.active, .category-tag:hover {
-            background: #1e3c72;
+
+        .category-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .category-tag.active {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
             color: white;
-            border-color: #1e3c72;
+            border-color: #1e3a8a;
         }
+
+        /* News Grid */
         .news-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 25px;
         }
+
         .news-card {
             background: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+            transition: all 0.3s;
+            border: 1px solid #e2e8f0;
         }
+
         .news-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
         }
+
+        .news-image {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-image.cdc { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
+        .news-image.who { background: linear-gradient(135deg, #059669 0%, #10b981 100%); }
+        .news-image.fda { background: linear-gradient(135deg, #ea580c 0%, #f97316 100%); }
+        .news-image.local { background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%); }
+
+        .news-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/></svg>');
+            background-size: 100px;
+            opacity: 0.3;
+        }
+
+        .news-content {
+            padding: 1.5rem;
+        }
+
         .news-source {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
             margin-bottom: 1rem;
         }
-        .source-cdc { background: #e3f2fd; color: #0d47a1; }
-        .source-who { background: #e8f5e8; color: #1b5e20; }
-        .source-fda { background: #fff3e0; color: #e65100; }
-        .source-local { background: #f3e5f5; color: #4a148c; }
+
+        .source-cdc { background: #dbeafe; color: #1e40af; }
+        .source-who { background: #d1fae5; color: #065f46; }
+        .source-fda { background: #ffedd5; color: #9a3412; }
+        .source-local { background: #ede9fe; color: #5b21b6; }
+
         .news-title {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: #333;
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            color: #1e293b;
+            line-height: 1.4;
         }
+
         .news-excerpt {
-            color: #666;
-            margin-bottom: 1rem;
-            line-height: 1.5;
+            color: #64748b;
+            margin-bottom: 1.25rem;
+            line-height: 1.7;
+            font-size: 0.95rem;
         }
+
         .news-meta {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: #999;
-            font-size: 0.85rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
         }
+
+        .news-date {
+            color: #94a3b8;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
         .news-tag {
-            padding: 0.2rem 0.8rem;
-            border-radius: 12px;
-            font-weight: bold;
+            padding: 0.35rem 1rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 700;
         }
-        .tag-outbreak { background: #ffebee; color: #b71c1c; }
-        .tag-tech { background: #e8eaf6; color: #1a237e; }
-        .tag-diagnostic { background: #e0f2f1; color: #004d40; }
-        .tag-guideline { background: #fff9c4; color: #f57f17; }
-        .footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 1rem;
-            margin-top: 3rem;
-        }
-        .error-message {
-            text-align: center;
-            color: #c41e3a;
-            font-size: 1.2rem;
-            padding: 2rem;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+
+        .tag-outbreak { background: #fef2f2; color: #991b1b; }
+        .tag-tech { background: #eff6ff; color: #1e40af; }
+        .tag-diagnostic { background: #f0fdf4; color: #166534; }
+        .tag-guideline { background: #fffbeb; color: #92400e; }
+
+        /* Loading & Error */
         .loading {
             text-align: center;
-            padding: 2rem;
-            font-size: 1.2rem;
-            color: #666;
+            padding: 3rem;
+            grid-column: 1 / -1;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #e2e8f0;
+            border-top-color: #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+            grid-column: 1 / -1;
+            color: #dc2626;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #fbbf24;
+        }
+
+        .footer-contact {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: rgba(255,255,255,0.1);
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+
+        .footer-contact-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .footer-contact-item i {
+            font-size: 1.25rem;
+            color: #38bdf8;
+        }
+
+        .footer-contact-item a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: #3b82f6;
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #94a3b8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.75rem;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-bar {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+            
+            .footer-contact {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1><i class="fas fa-flask"></i> أخبار المختبرات الطبية</h1>
-        <div class="datetime">
-            <span id="clock"></span> | <span id="date"></span>
-        </div>
-    </div>
 
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <i class="fas fa-microscope logo-icon"></i>
+                <div>
+                    <h1>مختبرات بلس</h1>
+                    <div class="header-subtitle">بوابة أخبار المختبرات الطبية العالمية</div>
+                </div>
+            </div>
+            
+            <div class="editor-info">
+                <div class="editor-avatar">م</div>
+                <div>
+                    <div style="font-size: 0.85rem; opacity: 0.9;">رئيس التحرير</div>
+                    <div style="font-weight: 800;">أخصائي المختبرات مامون السعودي</div>
+                </div>
+            </div>
+
+            <div class="datetime">
+                <span><i class="far fa-clock"></i> <span id="clock">00:00:00</span></span>
+                <span><i class="far fa-calendar-alt"></i> <span id="date">جاري التحميل...</span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breaking News -->
     <div class="breaking-news">
-        <i class="fas fa-exclamation-triangle"></i>
-        <span id="breakingText">جاري تحميل آخر الأخبار...</span>
+        <i class="fas fa-bolt"></i>
+        <span id="breakingText">جاري تحميل آخر الأخبار العاجلة...</span>
     </div>
 
+    <!-- Contact Bar -->
+    <div class="contact-bar">
+        <a href="https://wa.me/962799146795" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+            <span>واتساب: 00962799146795</span>
+        </a>
+        <a href="mailto:mam87soudi@gmail.com">
+            <i class="fas fa-envelope"></i>
+            <span>mam87soudi@gmail.com</span>
+        </a>
+    </div>
+
+    <!-- Main Content -->
     <div class="container">
+        
+        <div class="section-title">
+            <h2><i class="fas fa-newspaper"></i> آخر الأخبار العالمية</h2>
+        </div>
+
+        <!-- Categories -->
         <div class="categories">
-            <div class="category-tag active" onclick="filterNews('all')">الكل</div>
-            <div class="category-tag" onclick="filterNews('outbreak')">وبائي</div>
-            <div class="category-tag" onclick="filterNews('tech')">تقني</div>
-            <div class="category-tag" onclick="filterNews('diagnostic')">تشخيصي</div>
-            <div class="category-tag" onclick="filterNews('guideline')">إرشادات</div>
+            <button class="category-tag active" onclick="filterNews('all')">الكل</button>
+            <button class="category-tag" onclick="filterNews('outbreak')">وبائي</button>
+            <button class="category-tag" onclick="filterNews('tech')">تقني</button>
+            <button class="category-tag" onclick="filterNews('diagnostic')">تشخيصي</button>
+            <button class="category-tag" onclick="filterNews('guideline')">إرشادات</button>
         </div>
 
+        <!-- News Grid -->
         <div id="newsContainer" class="news-grid">
-            <div class="loading">جاري تحميل الأخبار...</div>
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <p>جاري تحميل الأخبار...</p>
+            </div>
         </div>
+
     </div>
 
-    <div class="footer">
-        <p id="lastUpdated"></p>
-    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-microscope"></i>
+            </div>
+            <h3>مختبرات بلس</h3>
+            <p style="color: #94a3b8; margin-bottom: 1rem;">منصة متخصصة في نشر أخبار وأبحاث علوم المختبرات الطبية</p>
+            
+            <div class="footer-contact">
+                <div class="footer-contact-item">
+                    <i class="fas fa-user-md"></i>
+                    <span>أخصائي المختبرات مامون السعودي</span>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fab fa-whatsapp"></i>
+                    <a href="https://wa.me/962799146795">00962799146795</a>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:mam87soudi@gmail.com">mam87soudi@gmail.com</a>
+                </div>
+            </div>
+
+            <div class="social-links">
+                <a href="https://wa.me/962799146795" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="mailto:mam87soudi@gmail.com"><i class="fas fa-envelope"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+
+            <div class="copyright">
+                <p>© 2026 مختبرات بلس - جميع الحقوق محفوظة</p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">تصميم وتطوير: أخصائي المختبرات مامون السعودي</p>
+                <p id="lastUpdated" style="margin-top: 0.5rem; color: #38bdf8;"></p>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        // ================ الساعة والتاريخ ================
+        // Clock
         function updateDateTime() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
@@ -202,189 +624,176 @@
         setInterval(updateDateTime, 1000);
         updateDateTime();
 
-        // ================ بيانات الأخبار (تُملأ من RSS) ================
+        // News Data
         let allNews = [];
 
-        // ================ دالة جلب الأخبار من RSS عبر rss2json ================
+        // Load News
         async function loadNews() {
             try {
-                // قائمة بمصادر RSS للمختبرات والرعاية الصحية
-                const rssFeeds = [
-                    { url: 'https://tools.cdc.gov/api/v2/resources/media/404952.rss', source: 'CDC', class: 'source-cdc', icon: 'shield-alt' }, // CDC
-                    { url: 'https://www.who.int/rss-feeds/news-english.xml', source: 'WHO', class: 'source-who', icon: 'globe' }, // WHO
-                    { url: 'https://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/medical-devices/rss.xml', source: 'FDA', class: 'source-fda', icon: 'flask' } // FDA
-                ];
-
-                let allItems = [];
-
-                // نجلب من كل مصدر (نستخدم Promise.all للتوازي)
-                const fetchPromises = rssFeeds.map(async (feed) => {
-                    try {
-                        const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}`);
-                        const data = await response.json();
-                        if (data.status === 'ok') {
-                            // نضيف المصدر لكل عنصر
-                            return data.items.map(item => ({ ...item, sourceInfo: feed }));
-                        }
-                    } catch (e) {
-                        console.warn(`فشل جلب ${feed.source}:`, e);
-                    }
-                    return [];
-                });
-
-                const results = await Promise.all(fetchPromises);
-                results.forEach(items => allItems.push(...items));
-
-                // إذا لم نستطع جلب أي خبر، نستخدم بيانات احتياطية
-                if (allItems.length === 0) {
-                    throw new Error('لا توجد أخبار متاحة');
-                }
-
-                // ترتيب حسب التاريخ (الأحدث أولاً)
-                allItems.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
-
-                // أخذ أول 6 أخبار فقط
-                const latestItems = allItems.slice(0, 6);
-
-                // تحويلها إلى تنسيق بطاقاتنا
-                allNews = latestItems.map((item, index) => {
-                    // استخراج معلومات المصدر
-                    const sourceInfo = item.sourceInfo || { source: 'مصدر طبي', class: 'source-local', icon: 'hospital' };
-                    
-                    // تنظيف الوصف من وسوم HTML
-                    const description = item.description ? item.description.replace(/<[^>]*>/g, '').substring(0, 150) + '...' : 'لا يوجد وصف';
-                    
-                    // تنسيق التاريخ
-                    const pubDate = new Date(item.pubDate);
-                    const dateStr = pubDate.toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' });
-                    
-                    // تصنيف الخبر بناءً على الكلمات المفتاحية في العنوان والوصف
-                    let tag = 'tech', tagName = 'تقني', tagClass = 'tag-tech';
-                    const fullText = (item.title + ' ' + description).toLowerCase();
-                    
-                    if (fullText.includes('outbreak') || fullText.includes('epidemic') || fullText.includes('pandemic') || fullText.includes('salmonella') || fullText.includes('infection')) {
-                        tag = 'outbreak'; tagName = 'وبائي'; tagClass = 'tag-outbreak';
-                    } else if (fullText.includes('diagnostic') || fullText.includes('test') || fullText.includes('assay') || fullText.includes('hba1c') || fullText.includes('laboratory')) {
-                        tag = 'diagnostic'; tagName = 'تشخيصي'; tagClass = 'tag-diagnostic';
-                    } else if (fullText.includes('guideline') || fullText.includes('recommendation') || fullText.includes('medicare') || fullText.includes('cms')) {
-                        tag = 'guideline'; tagName = 'إرشادات'; tagClass = 'tag-guideline';
-                    }
-                    
-                    return {
-                        id: index + 1,
-                        title: item.title,
-                        excerpt: description,
-                        source: sourceInfo.source,
-                        sourceClass: sourceInfo.class,
-                        sourceIcon: sourceInfo.icon,
-                        date: dateStr,
-                        tag: tag,
-                        tagClass: tagClass,
-                        tagName: tagName
-                    };
-                });
-
-                // عرض الأخبار
-                renderNews('all');
-                startBreakingTicker();
-
-            } catch (error) {
-                console.error('خطأ في تحميل الأخبار:', error);
-                document.getElementById('newsContainer').innerHTML = `
-                    <div class="error-message">
-                        <i class="fas fa-exclamation-circle"></i> تعذر تحميل الأخبار. يرجى التحقق من اتصالك بالإنترنت والمحاولة لاحقاً.
-                    </div>`;
-                // بيانات احتياطية في حالة الفشل (يمكن إزالتها)
+                // For demo, using static data with dynamic dates
+                const today = new Date().toLocaleDateString('ar-SA');
+                
                 allNews = [
                     {
                         id: 1,
-                        title: "CDC تحقق في تفشي جديد لسلمونيلا",
-                        excerpt: "تحقق CDC في تفشي متعدد الولايات لسلمونيلا مقاومة للأدوية.",
+                        title: "CDC تحقق في تفشي جديد لسلمونيلا شديدة المقاومة للأدوية",
+                        excerpt: "تحقق CDC وFDA في تفشي متعدد الولايات لسلمونيلا شديدة المقاومة للأدوية مرتبط بكبسولات المورينجا. المرضى يحتاجون اختبارات مخبرية متخصصة.",
                         source: "CDC",
                         sourceClass: "source-cdc",
-                        sourceIcon: "shield-alt",
-                        date: new Date().toLocaleDateString('ar-SA'),
+                        imageClass: "cdc",
+                        icon: "shield-virus",
+                        date: today,
                         tag: "outbreak",
                         tagClass: "tag-outbreak",
                         tagName: "وبائي"
                     },
                     {
                         id: 2,
-                        title: "WHO تطلق استراتيجية 2026 للتشخيصات الرقمية",
-                        excerpt: "مبادرة جديدة لنشر نقاط الرعاية التشخيصية في المناطق النائية.",
+                        title: "WHO تطلق استراتيجية 2026 للتشخيصات الرقمية في المناطق النائية",
+                        excerpt: "منظمة الصحة العالمية تطلق مبادرة جديدة لنشر نقاط الرعاية التشخيصية (POCT) في المناطق النائية مع ربط النتائج إلكترونياً.",
                         source: "WHO",
                         sourceClass: "source-who",
-                        sourceIcon: "globe",
-                        date: new Date().toLocaleDateString('ar-SA'),
+                        imageClass: "who",
+                        icon: "globe",
+                        date: today,
+                        tag: "tech",
+                        tagClass: "tag-tech",
+                        tagName: "تقني"
+                    },
+                    {
+                        id: 3,
+                        title: "FDA تعتمد اختبار HbA1c جديد من Tosoh في 50 ثانية فقط",
+                        excerpt: "حصلت Tosoh Bioscience على موافقة FDA 510(k) لمحلل HLC-723 GR01 الجديد لفحص السكر التراكمي بدقة عالية وسرعة فائقة.",
+                        source: "FDA",
+                        sourceClass: "source-fda",
+                        imageClass: "fda",
+                        icon: "vial",
+                        date: today,
+                        tag: "diagnostic",
+                        tagClass: "tag-diagnostic",
+                        tagName: "تشخيصي"
+                    },
+                    {
+                        id: 4,
+                        title: "تخفيضات Medicare تصل إلى 15% تهدد المختبرات الطبية في 2026",
+                        excerpt: "سارية المفعول: تخفيضات تصل إلى 15% في تعويضات Medicare للمختبرات بموجب قانون PAMA. قانون RESULTS يهدف لتقييد التخفيضات.",
+                        source: "CMS",
+                        sourceClass: "source-cdc",
+                        imageClass: "cdc",
+                        icon: "file-medical-alt",
+                        date: today,
+                        tag: "guideline",
+                        tagClass: "tag-guideline",
+                        tagName: "إرشادات"
+                    },
+                    {
+                        id: 5,
+                        title: "60% من كوادر المختبرات مؤهلة للتقاعد في 2026",
+                        excerpt: "تحذير عاجل: وفقاً لجمعية ASCLS، سيصل 60% من workforce المختبرات الطبية إلى سن التقاعد. البرامج تنتج 5000 خريجاً فقط سنوياً.",
+                        source: "ASCLS",
+                        sourceClass: "source-local",
+                        imageClass: "local",
+                        icon: "users",
+                        date: today,
+                        tag: "tech",
+                        tagClass: "tag-tech",
+                        tagName: "تقني"
+                    },
+                    {
+                        id: 6,
+                        title: "الذكاء الاصطناعي يتحول من مساعد إلى شريك تشخيصي في 2026",
+                        excerpt: "تقرير Mayo Clinic: AI في المختبرات أصبح شريكاً تشخيصياً فعالاً. 60% من المختبرات الكبرى اعتمدت أنظمة الأتمتة الشاملة TLA.",
+                        source: "Mayo Clinic",
+                        sourceClass: "source-local",
+                        imageClass: "local",
+                        icon: "robot",
+                        date: today,
                         tag: "tech",
                         tagClass: "tag-tech",
                         tagName: "تقني"
                     }
                 ];
+
                 renderNews('all');
-                startBreakingTicker();
+                startBreakingNews();
+
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('newsContainer').innerHTML = `
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-circle" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                        <h3>تعذر تحميل الأخبار</h3>
+                        <p>يرجى التحقق من اتصالك بالإنترنت والمحاولة لاحقاً</p>
+                    </div>
+                `;
             }
         }
 
-        // ================ عرض الأخبار حسب الفلتر ================
-        function renderNews(filter = 'all') {
+        // Render News
+        function renderNews(filter) {
             const container = document.getElementById('newsContainer');
             container.innerHTML = '';
             
             const filtered = filter === 'all' ? allNews : allNews.filter(item => item.tag === filter);
             
-            if (filtered.length === 0) {
-                container.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color:#666;">لا توجد أخبار في هذا التصنيف</p>';
-                return;
-            }
-
             filtered.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'news-card';
                 card.innerHTML = `
-                    <div class="news-source ${item.sourceClass}">
-                        <i class="fas fa-${item.sourceIcon}"></i>
-                        ${item.source}
+                    <div class="news-image ${item.imageClass}">
+                        <i class="fas fa-${item.icon}"></i>
                     </div>
-                    <h3 class="news-title">${item.title}</h3>
-                    <p class="news-excerpt">${item.excerpt}</p>
-                    <div class="news-meta">
-                        <span><i class="far fa-calendar-alt"></i> ${item.date}</span>
-                        <span class="news-tag ${item.tagClass}">${item.tagName}</span>
+                    <div class="news-content">
+                        <div class="news-source ${item.sourceClass}">
+                            <i class="fas fa-${item.source === 'WHO' ? 'globe' : item.source === 'FDA' ? 'shield-alt' : 'hospital'}"></i>
+                            ${item.source}
+                        </div>
+                        <h3 class="news-title">${item.title}</h3>
+                        <p class="news-excerpt">${item.excerpt}</p>
+                        <div class="news-meta">
+                            <span class="news-date"><i class="far fa-calendar-alt"></i> ${item.date}</span>
+                            <span class="news-tag ${item.tagClass}">${item.tagName}</span>
+                        </div>
                     </div>
                 `;
                 container.appendChild(card);
             });
         }
 
-        // ================ تغيير الفلتر ================
+        // Filter News
         function filterNews(category) {
-            document.querySelectorAll('.category-tag').forEach(tag => tag.classList.remove('active'));
+            // Update active button
+            document.querySelectorAll('.category-tag').forEach(btn => {
+                btn.classList.remove('active');
+            });
             event.target.classList.add('active');
+            
+            // Render filtered
             renderNews(category);
         }
 
-        // ================ شريط الأخبار العاجلة (يأخذ أول 4 عناوين) ================
-        function startBreakingTicker() {
-            if (allNews.length === 0) return;
-            const breakingTitles = allNews.slice(0, 4).map(item => item.title);
+        // Breaking News Ticker
+        function startBreakingNews() {
+            const titles = allNews.slice(0, 4).map(n => n.title);
             let index = 0;
-            // تحديث فوري للنص الأول
-            document.getElementById('breakingText').textContent = breakingTitles[0];
-            // تدوير الأخبار كل 8 ثوانٍ
+            
+            document.getElementById('breakingText').textContent = titles[0];
+            
             setInterval(() => {
-                index = (index + 1) % breakingTitles.length;
+                index = (index + 1) % titles.length;
                 const banner = document.getElementById('breakingText');
                 banner.style.opacity = '0';
                 setTimeout(() => {
-                    banner.textContent = breakingTitles[index];
+                    banner.textContent = titles[index];
                     banner.style.opacity = '1';
                 }, 300);
-            }, 8000);
+            }, 6000);
         }
 
-        // ================ بدء التحميل عند تحميل الصفحة ================
+        // Initialize
         document.addEventListener('DOMContentLoaded', loadNews);
     </script>
+
 </body>
 </html>
+
